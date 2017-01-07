@@ -1,9 +1,6 @@
 package Simon;
 
-public class MoveInterfaceJoey {
+public interface MoveInterfaceJoey {
 
-	public ButtonInterfaceJoey getButton() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ButtonInterfaceJoey getButton();
 }
