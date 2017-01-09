@@ -9,7 +9,6 @@ import javax.swing.Action;
 import guiPractice.component.ClickableScreen;
 import guiPractice.component.TextLabel;
 import guiPractice.component.Visible;
-import whackAMole.MoleInterface;
 
 public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private TextLabel label;
