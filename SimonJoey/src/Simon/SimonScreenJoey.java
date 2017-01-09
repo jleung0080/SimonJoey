@@ -6,11 +6,17 @@ import java.util.List;
 
 import javax.swing.Action;
 
+<<<<<<< HEAD
 import guiPractice8.component.ClickableScreen;
 import guiPractice8.component.TextLabel;
 import guiPractice8.component.Visible;
 
 
+=======
+import guiPractice.component.ClickableScreen;
+import guiPractice.component.TextLabel;
+import guiPractice.component.Visible;
+>>>>>>> branch 'master' of https://github.com/jleung0080/SimonJoey.git
 
 public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private TextLabel label;
