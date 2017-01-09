@@ -4,7 +4,8 @@ import java.awt.Color;
 
 import javax.swing.Action;
 
-import guiPractice8.component.Clickable;
+import guiPractice.component.Clickable;
+
 
 public interface ButtonInterfaceJoey extends Clickable{
 	void setColor(Color c);
