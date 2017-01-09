@@ -57,11 +57,16 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	}
 
 
+	private MoveInterfaceJoey getMove(ButtonInterfaceJoey buttonInterfaceJoey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	Placeholder until partner finishes implementation of ProgressInterface
 	 */
 	private ProgressInterfaceJoey getProgress() {
-		return null;
+		return new Progress();
 	}
 
 	private void addButtons() {
@@ -107,7 +112,6 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 
 
 	private ButtonInterfaceJoey getAButton() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

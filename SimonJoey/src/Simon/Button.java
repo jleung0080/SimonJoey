@@ -4,22 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.Action;
+import guiPractice.component.Action;
 
 import guiPractice.component.Component;
 
 
 public class Button extends Component implements ButtonInterfaceJoey{
 
+	private Color c;
+	private Color currentColor;
+	private boolean highlight;
+	private Action action;
+	
 	public Button(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void setColor(Color c) {
-		// TODO Auto-generated method stub
-		
+		this.c = c;
+		currentColor = c;
+		update();
 	}
 
 	@Override
@@ -35,27 +40,24 @@ public class Button extends Component implements ButtonInterfaceJoey{
 	}
 
 	@Override
-	public void setAction(Action a) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void highlight() {
-		// TODO Auto-generated method stub
-		
+		if(c!=null){
+			currentColor = c;
+		}
+		highlight = true;
+		update();
 	}
 
 	@Override
 	public void dim() {
-		// TODO Auto-generated method stub
-		
+		currentColor = Color.lightGray;
+		highlight = false;
+		update();
 	}
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
-		
+		action.act();
 	}
 
 	@Override
@@ -101,15 +103,14 @@ public class Button extends Component implements ButtonInterfaceJoey{
 	}
 
 	@Override
-	public void update() {
+	public void update(Graphics2D arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(Graphics2D arg0) {
-		// TODO Auto-generated method stub
-		
+	public void setAction(Action action) {
+		this.action = action;;
 	}
 
 }

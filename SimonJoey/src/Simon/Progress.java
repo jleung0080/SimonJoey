@@ -1,19 +1,23 @@
 package Simon;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Progress implements ProgressInterfaceJoey {
 
+	private boolean gameOver;
+	private String round;
+	
 	@Override
 	public void gameOver() {
-		// TODO Auto-generated method stub
-
+		gameOver = true;
+		update();
 	}
 
 	@Override
 	public void setRound(int x) {
-		// TODO Auto-generated method stub
-
+		round = "Round: " + x;
+		update();
 	}
 
 	@Override
@@ -56,6 +60,12 @@ public class Progress implements ProgressInterfaceJoey {
 	public boolean isAnimated() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void update(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

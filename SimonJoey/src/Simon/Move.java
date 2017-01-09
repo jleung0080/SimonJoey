@@ -2,10 +2,15 @@ package Simon;
 
 public class Move implements MoveInterfaceJoey{
 
+	private ButtonInterfaceJoey button;
+	
+	public Move(ButtonInterfaceJoey button){
+		this.button = button;
+	}
+	
 	@Override
 	public ButtonInterfaceJoey getButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return button;
 	}
 
 }
