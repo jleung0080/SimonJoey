@@ -1,6 +1,6 @@
 package Simon;
 
-import guiPractice8.GUIApplication;
+import guiPractice.GUIApplication;
 
 public class SimonGameJoey extends GUIApplication {
 

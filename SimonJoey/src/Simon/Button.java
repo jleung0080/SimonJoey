@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Action;
 
-import guiPractice8.component.Component;
+import guiPractice.component.Component;
+
 
 public class Button extends Component implements ButtonInterfaceJoey{
 
