@@ -6,19 +6,11 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-import guiPractice8.component.Action;
-import guiPractice8.component.ClickableScreen;
-import guiPractice8.component.TextLabel;
-import guiPractice8.component.Visible;
-import guiPractice8.Screen;
-=======
-import javax.swing.Action;
-
+import guiPractice.component.Action;
 import guiPractice.component.ClickableScreen;
 import guiPractice.component.TextLabel;
 import guiPractice.component.Visible;
->>>>>>> branch 'master' of https://github.com/jleung0080/SimonJoey.git
+import guiPractice.Screen;
 
 public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private TextLabel label;
