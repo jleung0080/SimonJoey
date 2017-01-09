@@ -2,8 +2,7 @@ package Simon;
 
 import java.awt.Color;
 
-import javax.swing.Action;
-
+import guiPractice8.component.Action;
 import guiPractice8.component.Clickable;
 
 public interface ButtonInterfaceJoey extends Clickable{
