@@ -1,6 +1,6 @@
 package Simon;
 
-import guiPractice.component.Visible;
+import guiPractice8.component.Visible;
 
 public interface ProgressInterfaceJoey extends Visible {
 	
