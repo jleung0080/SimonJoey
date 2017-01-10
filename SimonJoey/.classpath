@@ -2,9 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/veera/Desktop/More.jar"/>
 	<classpathentry kind="lib" path="Library/GUI.jar"/>
 	<classpathentry kind="lib" path="C:/Users/veera/Desktop/GUI2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/veera/Desktop/Clicks.jar"/>
 	<classpathentry kind="lib" path="C:/Users/veera/Desktop/MoreGUI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/veera/Desktop/ButtonG.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guiPractice8.component.Action;
-import guiPractice8.component.Button;
 import guiPractice8.component.TextLabel;
 import guiPractice8.component.Visible;
 import guiPractice8.ClickableScreen;
