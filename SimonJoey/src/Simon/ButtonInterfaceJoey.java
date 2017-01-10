@@ -2,9 +2,8 @@ package Simon;
 
 import java.awt.Color;
 
-import javax.swing.Action;
-
 import guiPractice.component.Clickable;
+import guiPractice.components.Action;
 
 public interface ButtonInterfaceJoey extends Clickable{
 	void setColor(Color c);
