@@ -1,15 +1,10 @@
 package Simon;
 
-import guiPractice.GUIApplication;
+import guiPractice8.GUIApplication;
 
 public class SimonGameJoey extends GUIApplication {
 
 	public SimonGameJoey() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public SimonGameJoey(int width, int height) {
-		super(width, height);
 		// TODO Auto-generated constructor stub
 	}
 

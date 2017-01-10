@@ -1,14 +1,12 @@
 package Simon;
 
-import java.awt.Graphics2D;
-
-import guiPractice.component.Visible;
+import guiPractice8.component.Visible;
 
 public interface ProgressInterfaceJoey extends Visible {
+
+	void setRound(int roundNumber);
 	
+	void setSequenceSize(int sequenceNumber);
+		
 	void gameOver();
-	void setRound(int x);
-	void setSequenceSize(int x);
-	void update(Graphics2D g);
-	
 }

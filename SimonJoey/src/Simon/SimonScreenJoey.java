@@ -4,169 +4,159 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import guiPractice.component.Action;
-import guiPractice.component.ClickableScreen;
-import guiPractice.component.TextLabel;
-import guiPractice.component.Visible;
+import guiPractice8.component.Action;
+import guiPractice8.component.Button;
+import guiPractice8.component.TextLabel;
+import guiPractice8.component.Visible;
+import guiPractice8.ClickableScreen;
 
 public class SimonScreenJoey extends ClickableScreen implements Runnable{
+	private ArrayList<MoveInterfaceJoey> moves;
 	private TextLabel label;
-	private ButtonInterfaceJoey[] buttons;
+	private ButtonInterfaceJoey[] button;
 	private ProgressInterfaceJoey progress;
-	private ArrayList<MoveInterfaceJoey> sequence;
+	
 	private int roundNumber;
-	private boolean acceptingInput;
+	private boolean incomingInput;
 	private int sequenceIndex;
 	private int lastSelectedButton;
-
+	
 
 	public SimonScreenJoey(int width, int height) {
 		super(width, height);
 		Thread app = new Thread(this);
 		app.start();
-	}
 
-	@Override
-	public void initAllObjects(List<Visible> viewObjects) {
-		int numberOfButtons = 4;
-		buttons = new ButtonInterfaceJoey[numberOfButtons];
-		Color[] colors = {Color.magenta, Color.blue, Color.red, Color.green};
-		for(int i = 0; i<numberOfButtons;i++){
-			final ButtonInterfaceJoey b = getAButton();
-			b.setColor(colors[i]);
-			b.setX((int)(Math.cos(.25+(i*.5))*10));
-			b.setY((int)(Math.sin(.25+(i*.5))*10));
-			b.setAction(new Action(){
-				public void act(){
-					if(acceptingInput){
-						Thread blink = new Thread(new Runnable(){
-							public void run(){
-								b.highlight();
-								try {
-									Thread.sleep(800);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								b.dim();
-							}
-						});
-						blink.start();
-						
-						
-						
-						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b) sequenceIndex++;
-						else if(acceptingInput){
-							progress.gameOver();
-							return;
-						}
-						if(sequenceIndex == sequence.size()){
-							Thread nextRound = new Thread(SimonScreenJoey.this);
-							nextRound.start();
-						}
-					}
-				}});
-			viewObjects.add(b);
-		}
-		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Let's play Simon!");
-		sequence = new ArrayList<MoveInterfaceJoey>();
-		//add 2 moves to start
-		lastSelectedButton = -1;
-		sequence.add(randomMove());
-		sequence.add(randomMove());
-		roundNumber = 0;
-		viewObjects.add(progress);
-		viewObjects.add(label);
-	}
-
-
-
-
-	private MoveInterfaceJoey randomMove() {
-		int pick = (int)(Math.random()*buttons.length);
-		while(pick == lastSelectedButton){
-			pick = (int)(Math.random()*buttons.length);
-		}
-		lastSelectedButton = pick;
-		//code that randomly selects a ButtonInterfaceX
-		return new Move(buttons[pick]);
-	}
-
-
-//	private MoveInterfaceJoey getMove(ButtonInterfaceJoey buttonInterfaceJoey) {
-//		// TODO Auto-generated method stub
-//		return new Move(buttonInterfaceJoey);
-//	}
-
-	/**
-	Placeholder until partner finishes implementation of ProgressInterface
-	 */
-	private ProgressInterfaceJoey getProgress() {
-		return new Progress();
-	}
-
-	private void addButtons() {}
-
-	private ButtonInterfaceJoey getAButton() {
-		return new Button();
 	}
 
 	@Override
 	public void run() {
 		label.setText("");
-		nextRound();
+	    nextRound();
 	}
 
-	private void playSequence(){
-		ButtonInterfaceJoey b = null;
-		for(int i =0;i<sequence.size();i++){
-			if(b != null){
-				b.dim();
-			}
-			b = sequence.get(i).getButton();
-			b.highlight();
-			int sleepTime =2500;
-			for(int j=0;j<roundNumber;j++){
-				if((int)(sleepTime-250)>0){
-					sleepTime-=250;
-				}
-			}
-			try {
-				Thread.sleep(sleepTime);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-	}
-
-
-	private void nextRound() {
-		acceptingInput = false;
+	public void nextRound() {
+		incomingInput = false;
 		roundNumber++;
+		moves.add(randomMove());
 		progress.setRound(roundNumber);
-		sequence.add(randomMove());
-		progress.setSequenceSize(sequence.size());
-		changeText("Simon's turn");
+		progress.setSequenceSize(moves.size());
+		changeText("Follow the color sequence!");
 		label.setText("");
 		playSequence();
-		changeText("Your Turn");
-		label.setText("");
-		acceptingInput = true;
-		sequenceIndex=0;
+		changeText("Your turn.");
+		incomingInput = true;
+		sequenceIndex =0;
+		
+	}
+
+	private void playSequence() {
+		ButtonInterfaceJoey b =null;
+		for(MoveInterfaceJoey sequence: moves){
+			if(b!=null)//{
+				b.dim();
+				b=sequence.getButton();
+				b.highlight();
+				int sleepTime = (int)(long)(1500*(2.0/(roundNumber+2)));
+				try {
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+		}
+		b.dim();
 	}
 
 	private void changeText(String string) {
-		// TODO Auto-generated method stub
-		label.setText(string);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		try{
+			label.setText(string);
+			Thread.sleep(600);
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
+	@Override
+	public void initAllObjects(ArrayList<Visible> viewObjects) {
+		addButtons(viewObjects);
+		progress = getProgress();
+		label = new TextLabel(130,230,300,40,"Simon Game");
+		moves = new ArrayList<MoveInterfaceJoey>();
+		lastSelectedButton = -1;
+		moves.add(randomMove());
+		moves.add(randomMove());
+		roundNumber = 0;
+		viewObjects.add(progress);
+		viewObjects.add(label);
+	}
+
+	private MoveInterfaceJoey randomMove() {
+		int select = (int) (Math.random()*button.length);
+		while(select == lastSelectedButton){
+			select = (int) (Math.random()*button.length);
+		}
+		lastSelectedButton = select;
+		return new Move(button[select]);
+	}
+
+	private MoveInterfaceJoey getMove(ButtonInterfaceJoey b) {
+		return null;
+	}
+
+	private ProgressInterfaceJoey getProgress() {
+		return new Progress();
+	}
+
+	public void addButtons(ArrayList<Visible> viewObjects) {
+		int numberOfButtons = 6;
+		Color[] colorArray = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
+		button = new ButtonInterfaceJoey[numberOfButtons];
+		for(int i =0; i <numberOfButtons;i++){
+			button[i] = getAButton();
+			button[i].setColor(colorArray[i]);
+			button[i].setX(160 + (int)(50+(50*i)));
+			button[i].setY(200);
+			final ButtonInterfaceJoey b = button[i];
+			b.dim();
+			b.setAction(new Action(){
+				public void act(){
+					if(incomingInput){
+						Thread blink = new Thread(new Runnable(){
+							
+							public void run(){
+								b.highlight();
+								try{
+									Thread.sleep(400);
+								} catch (InterruptedException e){
+									e.printStackTrace();
+								}
+								b.dim();
+							}
+							
+						});
+						
+						blink.start();
+						
+						if(incomingInput && moves.get(sequenceIndex).getButton() == b){
+							sequenceIndex++;
+						}
+						else if(incomingInput){
+							progress.gameOver();
+							return;
+						}
+						if(sequenceIndex == moves.size()){
+							Thread nextRound = new Thread(SimonScreenJoey.this);
+							nextRound.start();
+						}
+					}
+				}
+			});
+			viewObjects.add(b);
+		}
+	}
+
+	private ButtonInterfaceJoey getAButton() {
+		return new Button();
+	}
+	
 }
