@@ -8,7 +8,6 @@ public class Move implements MoveInterfaceJoey{
 		this.button = button;
 	}
 	
-	@Override
 	public ButtonInterfaceJoey getButton() {
 		return button;
 	}

@@ -2,6 +2,8 @@ package Simon;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import guiPractice.component.Action;
@@ -16,8 +18,8 @@ public class Button extends Component implements ButtonInterfaceJoey{
 	private boolean highlight;
 	private Action action;
 	
-	public Button(int x, int y, int w, int h) {
-		super(x, y, w, h);
+	public Button() {
+		super(0, 0, 50, 50);
 	}
 
 	@Override
@@ -103,9 +105,27 @@ public class Button extends Component implements ButtonInterfaceJoey{
 	}
 
 	@Override
-	public void update(Graphics2D arg0) {
-		// TODO Auto-generated method stub
-		
+	public void update(Graphics2D g) {
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		if(currentColor != null) g.setColor(currentColor);
+		else g.setColor(Color.gray);
+		g.fillOval(0, 0, getWidth(), getHeight());
+		g.setColor(Color.black);
+		g.drawOval(0, 0, getWidth()-1, getHeight()-1);
+		if(highlight){
+			g.setColor(Color.white);
+			Polygon p = new Polygon();
+			
+			int s = (int)(5/8.0 * getWidth());
+			int t = (int)(1.0/5*getHeight())+4;
+			p.addPoint(s-4, t-4);
+			p.addPoint(s+7, t-2);
+			p.addPoint(s+10, t);
+			p.addPoint(s+14, t+10);
+			p.addPoint(s+12, t+14);
+			p.addPoint(s+8, t+3);
+			g.fill(p);
+		}
 	}
 
 	@Override

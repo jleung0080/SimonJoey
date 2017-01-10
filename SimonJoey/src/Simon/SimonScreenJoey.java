@@ -1,8 +1,6 @@
 package Simon;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import guiPractice.component.Action;
 import guiPractice.component.ClickableScreen;
 import guiPractice.component.TextLabel;
 import guiPractice.component.Visible;
-import guiPractice.Screen;
 
 public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private TextLabel label;
@@ -30,47 +27,9 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	}
 
 	@Override
-	public void initAllObjects(List<Visible> v) {
-		addButtons();
-		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Let's play Simon!");
-		sequence = new ArrayList<MoveInterfaceJoey>();
-		//add 2 moves to start
-		lastSelectedButton = -1;
-		sequence.add(randomMove());
-		sequence.add(randomMove());
-		roundNumber = 0;
-		viewObjects.add(progress);
-		viewObjects.add(label);
-	}
-
-
-
-
-	private MoveInterfaceJoey randomMove() {
-		int pick = (int)(Math.random()*buttons.length);
-		while(pick == lastSelectedButton){
-			pick = (int)(Math.random()*buttons.length);
-		}
-		//code that randomly selects a ButtonInterfaceX
-		return getMove(buttons[pick]);
-	}
-
-
-	private MoveInterfaceJoey getMove(ButtonInterfaceJoey buttonInterfaceJoey) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	Placeholder until partner finishes implementation of ProgressInterface
-	 */
-	private ProgressInterfaceJoey getProgress() {
-		return new Progress();
-	}
-
-	private void addButtons() {
+	public void initAllObjects(List<Visible> viewObjects) {
 		int numberOfButtons = 4;
+		buttons = new ButtonInterfaceJoey[numberOfButtons];
 		Color[] colors = {Color.magenta, Color.blue, Color.red, Color.green};
 		for(int i = 0; i<numberOfButtons;i++){
 			final ButtonInterfaceJoey b = getAButton();
@@ -93,26 +52,64 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 							}
 						});
 						blink.start();
+						
+						
+						
+						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b) sequenceIndex++;
+						else if(acceptingInput){
+							progress.gameOver();
+							return;
+						}
+						if(sequenceIndex == sequence.size()){
+							Thread nextRound = new Thread(SimonScreenJoey.this);
+							nextRound.start();
+						}
 					}
-				}
-			});
-			if(b == sequence.get(sequenceIndex).getButton()){
-				sequenceIndex++;
-				if(sequenceIndex == sequence.size()){
-					Thread nextRound = new Thread(SimonScreenJoey.this);
-					nextRound.start(); 
-				}
-			}else{
-				progress.gameOver();
-			}
+				}});
 			viewObjects.add(b);
 		}
+		progress = getProgress();
+		label = new TextLabel(130,230,300,40,"Let's play Simon!");
+		sequence = new ArrayList<MoveInterfaceJoey>();
+		//add 2 moves to start
+		lastSelectedButton = -1;
+		sequence.add(randomMove());
+		sequence.add(randomMove());
+		roundNumber = 0;
+		viewObjects.add(progress);
+		viewObjects.add(label);
 	}
 
 
 
+
+	private MoveInterfaceJoey randomMove() {
+		int pick = (int)(Math.random()*buttons.length);
+		while(pick == lastSelectedButton){
+			pick = (int)(Math.random()*buttons.length);
+		}
+		lastSelectedButton = pick;
+		//code that randomly selects a ButtonInterfaceX
+		return new Move(buttons[pick]);
+	}
+
+
+//	private MoveInterfaceJoey getMove(ButtonInterfaceJoey buttonInterfaceJoey) {
+//		// TODO Auto-generated method stub
+//		return new Move(buttonInterfaceJoey);
+//	}
+
+	/**
+	Placeholder until partner finishes implementation of ProgressInterface
+	 */
+	private ProgressInterfaceJoey getProgress() {
+		return new Progress();
+	}
+
+	private void addButtons() {}
+
 	private ButtonInterfaceJoey getAButton() {
-		return null;
+		return new Button();
 	}
 
 	@Override
@@ -149,13 +146,14 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private void nextRound() {
 		acceptingInput = false;
 		roundNumber++;
-		sequence.add(randomMove());
 		progress.setRound(roundNumber);
+		sequence.add(randomMove());
 		progress.setSequenceSize(sequence.size());
 		changeText("Simon's turn");
 		label.setText("");
 		playSequence();
 		changeText("Your Turn");
+		label.setText("");
 		acceptingInput = true;
 		sequenceIndex=0;
 	}
