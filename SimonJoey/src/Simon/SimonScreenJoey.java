@@ -107,8 +107,8 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	}
 
 	public void addButtons(ArrayList<Visible> viewObjects) {
-		int numberOfButtons = 6;
-		Color[] colorArray = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
+		int numberOfButtons = 4;
+		Color[] colorArray = {Color.red, Color.blue, Color.orange, Color.pink};
 		button = new ButtonInterfaceJoey[numberOfButtons];
 		for(int i =0; i <numberOfButtons;i++){
 			button[i] = getAButton();
