@@ -59,14 +59,13 @@ public class Button extends Component implements ButtonInterfaceJoey{
 			g.setColor(currentColor);
 		}
 		else{
-			g.setColor(Color.gray);
+			g.setColor(Color.lightGray);
 		}
 		g.fillOval(0, 0, 50, 50);
 		g.setColor(Color.black);
 		g.drawOval(0, 0, 50-1, 50-1);
 		if(highlight){
 			g.setColor(Color.white);
-			
 		}
 	}
 

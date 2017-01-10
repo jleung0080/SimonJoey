@@ -16,7 +16,7 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private ProgressInterfaceJoey progress;
 	
 	private int roundNumber;
-	private boolean incomingInput;
+	private boolean acceptingInput;
 	private int sequenceIndex;
 	private int lastSelectedButton;
 	
@@ -35,16 +35,16 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	}
 
 	public void nextRound() {
-		incomingInput = false;
+		acceptingInput = false;
 		roundNumber++;
 		moves.add(randomMove());
 		progress.setRound(roundNumber);
 		progress.setSequenceSize(moves.size());
-		changeText("Follow the color sequence!");
+		changeText("Do as Simon says!");
 		label.setText("");
 		playSequence();
-		changeText("Your turn.");
-		incomingInput = true;
+		changeText("Go!");
+		acceptingInput = true;
 		sequenceIndex =0;
 		
 	}
@@ -97,29 +97,25 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 		lastSelectedButton = select;
 		return new Move(button[select]);
 	}
-
-	private MoveInterfaceJoey getMove(ButtonInterfaceJoey b) {
-		return null;
-	}
-
+	
 	private ProgressInterfaceJoey getProgress() {
 		return new Progress();
 	}
 
 	public void addButtons(ArrayList<Visible> viewObjects) {
 		int numberOfButtons = 4;
-		Color[] colorArray = {Color.red, Color.blue, Color.orange, Color.pink};
+		Color[] colors = {Color.red, Color.blue, Color.orange, Color.pink};
 		button = new ButtonInterfaceJoey[numberOfButtons];
 		for(int i =0; i <numberOfButtons;i++){
 			button[i] = getAButton();
-			button[i].setColor(colorArray[i]);
-			button[i].setX(160 + (int)(50+(50*i)));
-			button[i].setY(200);
+			button[i].setColor(colors[i]);
+			button[i].setX((int)(400+ Math.cos((Math.PI/4 )+(i*Math.PI/2))*40));
+			button[i].setY((int)(200+Math.sin((Math.PI/4 )+(i*Math.PI/2))*40));
 			final ButtonInterfaceJoey b = button[i];
 			b.dim();
 			b.setAction(new Action(){
 				public void act(){
-					if(incomingInput){
+					if(acceptingInput){
 						Thread blink = new Thread(new Runnable(){
 							
 							public void run(){
@@ -136,10 +132,10 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 						
 						blink.start();
 						
-						if(incomingInput && moves.get(sequenceIndex).getButton() == b){
+						if(acceptingInput && moves.get(sequenceIndex).getButton() == b){
 							sequenceIndex++;
 						}
-						else if(incomingInput){
+						else if(acceptingInput){
 							progress.gameOver();
 							return;
 						}

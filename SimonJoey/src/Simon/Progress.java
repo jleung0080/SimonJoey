@@ -13,8 +13,8 @@ public class Progress extends Component implements ProgressInterfaceJoey {
 	private boolean gameOver;
 	private String round;
 	private String sequence;
-	private static final int WIDTH = 120;
-	private static final int HEIGHT = 50;
+	private static final int WIDTH = 125;
+	private static final int HEIGHT = 85;
 	
 	public Progress(){
 		super(60,60, WIDTH, HEIGHT);
@@ -43,20 +43,16 @@ public class Progress extends Component implements ProgressInterfaceJoey {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		FontMetrics fm = g.getFontMetrics();
 		if(gameOver){
-//			g.setColor(new Color(255,55,90));
-//			g.fillRect(0, 0, getWidth(), getHeight());
 			g.setColor(Color.red);
-			g.fillOval(0, 0, WIDTH, HEIGHT);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
 			g.setColor(Color.black);
-			String go = "you're a fool";
+			String go = "Game Over!";
 			g.drawString(go, (WIDTH - fm.stringWidth(go))/2, 20);
 			g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
 
 		}else{
-//			g.setColor(new Color(220,255,230));
-//			g.fillRect(0, 0, getWidth(), getHeight());
-			g.setColor(Color.yellow);
-			g.fillOval(0, 0, WIDTH, HEIGHT);
+			g.setColor(Color.orange);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
 			g.setColor(Color.black);
 			if(round !=null && sequence != null){
 
