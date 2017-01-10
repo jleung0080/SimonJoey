@@ -49,6 +49,7 @@ public class Progress extends Component implements ProgressInterfaceJoey {
 			String go = "Game Over!";
 			g.drawString(go, (WIDTH - fm.stringWidth(go))/2, 20);
 			g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
+			
 
 		}else{
 			g.setColor(Color.orange);
