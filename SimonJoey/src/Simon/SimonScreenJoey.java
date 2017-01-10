@@ -137,6 +137,7 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 						}
 						else if(acceptingInput){
 							progress.gameOver();
+							acceptingInput=false;
 							return;
 						}
 						if(sequenceIndex == moves.size()){
