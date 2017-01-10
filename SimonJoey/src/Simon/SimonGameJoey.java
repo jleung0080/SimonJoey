@@ -9,7 +9,7 @@ public class SimonGameJoey extends GUIApplication {
 	}
 
 	public SimonGameJoey(int i, int j) {
-		super(i, j);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

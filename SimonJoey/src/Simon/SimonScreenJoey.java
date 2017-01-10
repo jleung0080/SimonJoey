@@ -1,15 +1,16 @@
 package Simon;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Action;
-
+import guiPractice.component.Action;
 import guiPractice.component.ClickableScreen;
 import guiPractice.component.TextLabel;
 import guiPractice.component.Visible;
-import whackAMole.MoleInterface;
+import guiPractice.Screen;
 
 public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	private TextLabel label;
@@ -56,11 +57,16 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 	}
 
 
+	private MoveInterfaceJoey getMove(ButtonInterfaceJoey buttonInterfaceJoey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	Placeholder until partner finishes implementation of ProgressInterface
 	 */
 	private ProgressInterfaceJoey getProgress() {
-		return null;
+		return new Progress();
 	}
 
 	private void addButtons() {
@@ -89,7 +95,6 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 						blink.start();
 					}
 				}
-
 			});
 			if(b == sequence.get(sequenceIndex).getButton()){
 				sequenceIndex++;
@@ -107,7 +112,6 @@ public class SimonScreenJoey extends ClickableScreen implements Runnable{
 
 
 	private ButtonInterfaceJoey getAButton() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
